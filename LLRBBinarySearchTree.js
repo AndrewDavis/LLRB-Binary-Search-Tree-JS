@@ -53,22 +53,25 @@ class BinarySearchTree {
         this.compareFunction = compareFunction;
         this.allowDuplicates = allowDuplicates;
         this.root = LeafNode;
+        this.nodeInsertedInto = null;
 
         if (this.allowDuplicates) {
             this.insert = function (key, value) {
-                this.root = BinarySearchTree.insertWithDuplicatesRecursive(this.root, key, value, null, this.compareFunction);
+                this.root = BinarySearchTree.insertWithDuplicatesRecursive(this, this.root, key, value, null, this.compareFunction);
                 if (this.root != LeafNode) {
                     this.root.parentNode = null;
                 }
                 this.root.isRed = false;
+                return this.nodeInsertedInto;
             };
         } else {
             this.insert = function (key, value) {
-                this.root = BinarySearchTree.insertRecursive(this.root, key, value, null, this.compareFunction);
+                this.root = BinarySearchTree.insertRecursive(this, this.root, key, value, null, this.compareFunction);
                 if (this.root != LeafNode) {
                     this.root.parentNode = null;
                 }
                 this.root.isRed = false;
+                return this.nodeInsertedInto;
             };
         }
     }
@@ -286,10 +289,10 @@ class BinarySearchTree {
     //     /\  "public" functions  /\
     //     \/ "private"  functions \/
 
-    static insertRecursive(node, key, value, parentNode, compare) {
+    static insertRecursive(tree, node, key, value, parentNode, compare) {
         if (node == LeafNode) {
             //Same structure for all nodes.
-            return {
+            tree.nodeInsertedInto = {
                 key,
                 value,
                 isRed: true,
@@ -297,17 +300,18 @@ class BinarySearchTree {
                 leftNode: LeafNode,
                 rightNode: LeafNode
             };
+            return tree.nodeInsertedInto;
         }
 
         let comparison = compare(key, node.key);
 
         if (comparison < 0) {
-            node.leftNode = BinarySearchTree.insertRecursive(node.leftNode, key, value, node, compare);
+            node.leftNode = BinarySearchTree.insertRecursive(tree, node.leftNode, key, value, node, compare);
             if (node.leftNode != LeafNode) {
                 node.leftNode.parentNode = node;
             }
         } else if (comparison > 0) {
-            node.rightNode = BinarySearchTree.insertRecursive(node.rightNode, key, value, node, compare);
+            node.rightNode = BinarySearchTree.insertRecursive(tree, node.rightNode, key, value, node, compare);
             if (node.rightNode != LeafNode) {
                 node.rightNode.parentNode = node;
             }
@@ -328,10 +332,10 @@ class BinarySearchTree {
         return node;
     }
 
-    static insertWithDuplicatesRecursive(node, key, value, parentNode, compare) {
+    static insertWithDuplicatesRecursive(tree, node, key, value, parentNode, compare) {
         if (node == LeafNode) {
             //Same structure for all nodes.
-            return {
+            tree.nodeInsertedInto = {
                 key,
                 value: [ value ],
                 isRed: true,
@@ -339,17 +343,18 @@ class BinarySearchTree {
                 leftNode: LeafNode,
                 rightNode: LeafNode
             };
+            return tree.nodeInsertedInto;
         }
 
         let comparison = compare(key, node.key);
 
         if (comparison < 0) {
-            node.leftNode = BinarySearchTree.insertWithDuplicatesRecursive(node.leftNode, key, value, node, compare);
+            node.leftNode = BinarySearchTree.insertWithDuplicatesRecursive(tree, node.leftNode, key, value, node, compare);
             if (node.leftNode != LeafNode) {
                 node.leftNode.parentNode = node;
             }
         } else if (comparison > 0) {
-            node.rightNode = BinarySearchTree.insertWithDuplicatesRecursive(node.rightNode, key, value, node, compare);
+            node.rightNode = BinarySearchTree.insertWithDuplicatesRecursive(tree, node.rightNode, key, value, node, compare);
             if (node.rightNode != LeafNode) {
                 node.rightNode.parentNode = node;
             }

@@ -154,10 +154,13 @@ let tree = new BinarySearchTree({
 });
 
 //Insert a bunch of key->value pairs.
+let insertedNode;
 for (let x = 0; x < 100000; ++x) {
     //Random key->value pair.
-    tree.insert(Math.round(Math.random() * 10000), Math.random().toFixed(2));
+    insertedNode = tree.insert(Math.round(Math.random() * 10000), Math.random().toFixed(2));
 }
+//Get the last inserted node (or the existing node with multiple values).
+tree.nodeInsertedInto == insertedNode;
 
 //Remove nodes with specific keys, if they exist.
 for (let removeIndex = 0; removeIndex < 10000; ++removeIndex) {
