@@ -52,8 +52,7 @@ class BinarySearchTree {
     constructor({ compareFunction = DefaultCompareFunction, allowDuplicates = false }) {
         this.compareFunction = compareFunction;
         this.allowDuplicates = allowDuplicates;
-        this.root = LeafNode;
-        this.nodeInsertedInto = null;
+        this.clear();
 
         if (this.allowDuplicates) {
             this.insert = function (key, value) {
@@ -74,6 +73,14 @@ class BinarySearchTree {
                 return this.nodeInsertedInto;
             };
         }
+    }
+
+    /**
+     * @description Clears/Resets and empties the tree.
+     */
+    clear() {
+        this.root = LeafNode;
+        this.nodeInsertedInto = null;
     }
 
     /**

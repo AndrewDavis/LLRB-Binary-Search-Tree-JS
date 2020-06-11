@@ -227,6 +227,15 @@ if (false) {
 
         outputPre.innerHTML += '\n\n';
         outputPre.innerHTML += tree.toString();
+
+        outputPre.innerHTML += '\n\nClear/Reset tree:\n';
+        tree.clear();
+        outputPre.innerHTML += tree.toString();
+        outputPre.innerHTML += '\nStill works:\n';
+        for (let x = 0; x < 20; ++x) {
+            tree.insert(Math.round(Math.random() * 10000), Math.random().toFixed(2));
+        }
+        outputPre.innerHTML += tree.toString();
     };
 }
 

@@ -200,6 +200,9 @@ neighbor.value;
 //Get the first and last nodes of a tree or a subtree (pass in a node).
 let first = BinarySearchTree.getFirstNode(tree.root);
 let last = BinarySearchTree.getLastNode(tree.root);
+
+//Clear/Reset the tree.
+tree.clear();
 ```
 
 See `test.js` for more examples of its usage, including some sorted array comparison testing and benchmarking code.
