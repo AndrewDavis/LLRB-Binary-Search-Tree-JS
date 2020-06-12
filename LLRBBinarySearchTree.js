@@ -84,6 +84,14 @@ class BinarySearchTree {
     }
 
     /**
+     * @description Returns whether the tree is empty.
+     * @returns
+     */
+    isEmpty() {
+        return this.root == LeafNode;
+    }
+
+    /**
      * @description Find a node with the given key. If no node exists with the given key, null is returned.
      * @param key
      * @returns

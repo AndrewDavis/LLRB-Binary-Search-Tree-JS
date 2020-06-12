@@ -203,6 +203,8 @@ let last = BinarySearchTree.getLastNode(tree.root);
 
 //Clear/Reset the tree.
 tree.clear();
+//Determine if the tree is empty/cleared.
+tree.isEmpty();
 ```
 
 See `test.js` for more examples of its usage, including some sorted array comparison testing and benchmarking code.
